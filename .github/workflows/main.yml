@@ -22,8 +22,9 @@ jobs:
           cache: maven
       
       - name: Build Backend
-        # We use -pl to target the backend folder specifically
-        run: mvn -pl backend -am clean package -DskipTests
+        # This tells GitHub to enter the backend folder before running Maven
+        working-directory: ./backend
+        run: mvn clean package -DskipTests
 
       # 2. Setup Node & Build Frontend
       - name: Set up Node.js
@@ -34,8 +35,8 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Build Frontend
+        working-directory: ./frontend
         run: |
-          cd frontend
           npm install
           npm run build
 
@@ -58,7 +59,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          # '33065432' with your Docker Hub username
+          # REPLACE '33065432' with your actual Docker Hub username
           tags: 33065432/smart-cache-backend:latest
 
       - name: Build and Push Frontend Image
@@ -66,5 +67,5 @@ jobs:
         with:
           context: ./frontend
           push: true
-          # '33065432' with your Docker Hub username
+          # REPLACE '33065432' with your actual Docker Hub username
           tags: 33065432/smart-cache-frontend:latest
