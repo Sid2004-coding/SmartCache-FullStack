@@ -1,0 +1,18 @@
+# Node dependencies
+**/node_modules/
+
+# Java build files
+**/target/
+*.class
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+
+# Docker logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

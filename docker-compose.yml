@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  backend-api:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    networks:
+      - cache-net
+
+  frontend-ui:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend-api
+    networks:
+      - cache-net
+
+networks:
+  cache-net:
+    driver: bridge
